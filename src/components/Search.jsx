@@ -12,7 +12,7 @@ function Search({ onSearch }) {
   };
 
   return (
-    <div className="search absolute right-4 bg-cyan-100 text-black w-fit h-fit p-2 pl-4 rounded-2xl shadow-4xl">
+    <div className="search absolute top-4 right-4 bg-cyan-100 text-black w-fit h-fit p-2 pl-4 rounded-2xl shadow-4xl">
       <div className="flex items-center gap-4 text-base">
         <input
           type="text"
