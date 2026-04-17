@@ -20,7 +20,7 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: oklch(71.5% 0.143 215.221);
+  background-color: #00b8db;
   display: flex;
   justify-content: center;
   align-items: center;
