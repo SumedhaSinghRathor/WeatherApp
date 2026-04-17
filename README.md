@@ -1,6 +1,5 @@
 # WeatherApp
-<img width="full" height="auto" alt="localhost_5173_ (2)" src="https://github.com/user-attachments/assets/e20d8d75-4f3a-4e22-a1d7-f81747583a2e" />
-<img width="full" height="auto" alt="localhost_5173_ (1)" src="https://github.com/user-attachments/assets/d8e38ba1-b49c-4121-ae66-73304ae79dac" />
+<img width="full" height="auto" alt="sumedhasinghrathor-weatherdashboard vercel app_ all pages" src="https://github.com/user-attachments/assets/e8098532-88c6-4b72-a0d5-425126158a7a" />
 
 **Tech Stacks Used:** React Vite, Tailwind CSS
 <br><br>
