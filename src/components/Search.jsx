@@ -12,7 +12,7 @@ function Search({ onSearch }) {
   };
 
   return (
-    <div className="search bg-cyan-100 text-black w-fit h-fit p-2 pl-4 rounded-lg shadow-4xl">
+    <div className="search bg-cyan-100 dark:bg-white text-black w-fit h-fit p-2 pl-4 rounded-lg shadow-4xl">
       <div className="flex items-center gap-4 text-base">
         <input
           type="text"
@@ -28,7 +28,7 @@ function Search({ onSearch }) {
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           onClick={handleClick}
-          className="hover:bg-cyan-200 p-3 rounded-xl cursor-pointer"
+          className="hover:bg-cyan-200 dark:hover:bg-dark-navy/40 p-3 rounded-xl cursor-pointer"
         />
       </div>
     </div>

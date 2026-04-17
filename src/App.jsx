@@ -6,6 +6,7 @@ import mist from "./assets/mist.png";
 import snow from "./assets/snow.png";
 import rain from "./assets/rain.png";
 import thunderstorm from "./assets/thunderstorm.png";
+import Switch from "./components/Switch";
 
 function App() {
   const API_KEY = import.meta.env.VITE_OPENWEATHERMAP_API_KEY;
@@ -130,99 +131,101 @@ function App() {
     );
   } else {
     return (
-      <div className="rounded-2xl w-fit h-fit border-2 border-black bg-white flex flex-col gap-4 shadow shadow-black p-4">
-        <div className="flex justify-between">
-          {weatherData && (
-            <div className="flex items-end gap-4">
-              <div className="weather-img">
-                <img
-                  src={weatherData.icon}
-                  width={160}
-                  height={160}
-                  alt="img"
-                />
+      <>
+        <div className="rounded-2xl w-fit h-fit border-2 border-black dark:border-white bg-white dark:bg-dark-navy flex flex-col gap-4 shadow/40 shadow-black dark:shadow-white p-4 text-black dark:text-white">
+          <div className="flex justify-between">
+            {weatherData && (
+              <div className="flex items-end gap-4">
+                <div className="weather-img">
+                  <img
+                    src={weatherData.icon}
+                    width={160}
+                    height={160}
+                    alt="img"
+                  />
+                </div>
+                <div className="">
+                  <div className="city capitalize text-xs mb-2 ml-0.5">
+                    <span className="font-bold">{city}</span> •{" "}
+                    {weatherData.lat > 0
+                      ? `${Math.abs(weatherData.lat)}°N`
+                      : `${Math.abs(weatherData.lat)}°S`}{" "}
+                    /{" "}
+                    {weatherData.long > 0
+                      ? `${Math.abs(weatherData.long)}°E`
+                      : `${Math.abs(weatherData.long)}°W`}
+                  </div>
+                  <div className="temp text-7xl font-medium">
+                    {weatherData.temperature}°C
+                  </div>
+                  <div className="weather-condition text-3xl font-medium capitalize">
+                    {weatherData.desc}
+                  </div>
+                </div>
               </div>
-              <div className="">
-                <div className="city capitalize text-xs mb-2 ml-0.5">
-                  <span className="font-bold">{city}</span> •{" "}
-                  {weatherData.lat > 0
-                    ? `${Math.abs(weatherData.lat)}°N`
-                    : `${Math.abs(weatherData.lat)}°S`}{" "}
-                  /{" "}
-                  {weatherData.long > 0
-                    ? `${Math.abs(weatherData.long)}°E`
-                    : `${Math.abs(weatherData.long)}°W`}
-                </div>
-                <div className="temp text-7xl font-medium">
-                  {weatherData.temperature}°C
-                </div>
-                <div className="weather-condition text-3xl font-medium capitalize">
-                  {weatherData.desc}
-                </div>
+            )}
+            <Search onSearch={handleSearch} />
+          </div>
+          {weatherData && (
+            <div className="info flex justify-around">
+              <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
+                <span className="font-medium">{weatherData.humidity}%</span>
+                <p className="text-xs">Humidity</p>
+              </div>
+              <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
+                <span className="font-medium">
+                  {Math.round(weatherData.windSpeed)}Km/h
+                </span>
+                <p className="text-xs">Wind Speed</p>
+              </div>
+              <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
+                <span className="font-medium">
+                  {getWindDirection(weatherData.deg)} ({weatherData.deg}°)
+                </span>
+                <p className="text-xs">Wind Direction</p>
+              </div>
+              <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
+                <span className="font-medium">
+                  {Math.floor(weatherData.feels_like)}°C
+                </span>
+                <p className="text-xs">Feels like</p>
+              </div>
+              <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
+                <span className="font-medium">
+                  {Math.floor(weatherData.temp_min)}°C /{" "}
+                  {Math.floor(weatherData.temp_max)}°C
+                </span>
+                <p className="text-xs">Min / Max</p>
               </div>
             </div>
           )}
-          <Search onSearch={handleSearch} />
-        </div>
-        {weatherData && (
-          <div className="info flex justify-around">
-            <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
-              <span className="font-medium">{weatherData.humidity}%</span>
-              <p className="text-xs">Humidity</p>
-            </div>
-            <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
-              <span className="font-medium">
-                {Math.round(weatherData.windSpeed)}Km/h
-              </span>
-              <p className="text-xs">Wind Speed</p>
-            </div>
-            <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
-              <span className="font-medium">
-                {getWindDirection(weatherData.deg)} ({weatherData.deg}°)
-              </span>
-              <p className="text-xs">Wind Direction</p>
-            </div>
-            <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
-              <span className="font-medium">
-                {Math.floor(weatherData.feels_like)}°C
-              </span>
-              <p className="text-xs">Feels like</p>
-            </div>
-            <div className="info-card flex flex-col justify-center text-center w-full m-7 p-4 rounded-xl">
-              <span className="font-medium">
-                {Math.floor(weatherData.temp_min)}°C /{" "}
-                {Math.floor(weatherData.temp_max)}°C
-              </span>
-              <p className="text-xs">Min / Max</p>
-            </div>
-          </div>
-        )}
-        {forecast && (
-          <div className="five-day flex justify-between">
-            {forecast.map((item, index) => {
-              const date = new Date(item.dt_txt);
-              const day = days[date.getDay()];
-              const icon = allIcons[item.weather[0].icon] || clear;
+          {forecast && (
+            <div className="five-day flex justify-between">
+              {forecast.map((item, index) => {
+                const date = new Date(item.dt_txt);
+                const day = days[date.getDay()];
+                const icon = allIcons[item.weather[0].icon] || clear;
 
-              return (
-                <div
-                  key={index}
-                  className="day text-center p-4 flex flex-col flex-grow"
-                >
-                  <div className="font-medium text-sm mb-1">{day}</div>
-                  <img
-                    src={icon}
-                    alt="icon"
-                    width={40}
-                    className="mx-auto mb-1"
-                  />
-                  <div className="text-sm">{Math.floor(item.main.temp)}°C</div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
+                return (
+                  <div className="day text-center p-4 flex flex-col flex-grow">
+                    <div className="font-medium text-sm mb-1">{day}</div>
+                    <img
+                      src={icon}
+                      alt="icon"
+                      width={40}
+                      className="mx-auto mb-1"
+                    />
+                    <div className="text-sm">
+                      {Math.floor(item.main.temp)}°C
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+        <Switch />
+      </>
     );
   }
 }
